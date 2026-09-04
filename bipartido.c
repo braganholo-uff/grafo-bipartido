@@ -149,11 +149,14 @@ TVizinho *busca_vizinho(TVizinho *vizinho, int id) {
 }
 
 void insere_aresta(TGrafo *g, int origem, int destino) {
-    TGrafo *vertice = busca_vertice(g, origem);
-    TVizinho *vizinho = (TVizinho *) malloc(sizeof(TVizinho));
-    vizinho->id_vizinho = destino;
-    vizinho->prox = vertice->prim_vizinho;
-    vertice->prim_vizinho = vizinho;
+    TGrafo *pv1 = busca_vertice(g, origem);
+    TGrafo *pv2 = busca_vertice(g, destino);
+    if (pv1 != NULL && pv2 != NULL) {
+        TVizinho *nova = (TVizinho *) malloc(sizeof(TVizinho));
+        nova->id_vizinho = destino;
+        nova->prox = pv1->prim_vizinho;
+        pv1->prim_vizinho = nova;
+    }
 }
 
 void imprime(TGrafo *vertice) {
